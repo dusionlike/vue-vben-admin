@@ -1,157 +1,101 @@
-<div align="center">
-  <a href="https://github.com/anncwb/vue-vben-admin">
-    <img alt="VbenAdmin Logo" width="215" src="https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp">
-  </a>
-  <br>
-  <br>
+# Vue Vben Admin 简化版
 
-[![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
+这是一个从原始 vue-vben-admin 单独抽离并扁平化后的单包项目。当前仓库只保留一个前端应用和一个本地 mock 服务，目标是降低理解成本、减少工程脚手架噪音，并保留可直接运行的后台管理界面。
 
-  <h1>Vue Vben Admin</h1>
-</div>
+## 当前结构
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vbenjs_vue-vben-admin&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vbenjs_vue-vben-admin) [![codeql](https://github.com/vbenjs/vue-vben-admin/actions/workflows/codeql.yml/badge.svg)](https://github.com/vbenjs/vue-vben-admin/actions/workflows/codeql.yml) [![build](https://github.com/vbenjs/vue-vben-admin/actions/workflows/build.yml/badge.svg)](https://github.com/vbenjs/vue-vben-admin/actions/workflows/build.yml) [![ci](https://github.com/vbenjs/vue-vben-admin/actions/workflows/ci.yml/badge.svg)](https://github.com/vbenjs/vue-vben-admin/actions/workflows/ci.yml) [![deploy](https://github.com/vbenjs/vue-vben-admin/actions/workflows/deploy.yml/badge.svg)](https://github.com/vbenjs/vue-vben-admin/actions/workflows/deploy.yml)
+- `src`: 前端主项目源码
+- `server`: H3 mock 服务源码
+- `public`: 静态资源
+- `dist/app`: 前端构建产物
+- `dist/server`: mock 服务构建产物
 
-**English** | [中文](./README.zh-CN.md) | [日本語](./README.ja-JP.md)
+## 已做的简化
 
-## Introduction
+- 移除 monorepo 组织方式，不再以 `apps/*`、`packages/*`、`internal/*` 作为运行主路径
+- 前端主项目提升到根目录，mock 服务固定为根目录下的 `server`
+- 构建输出统一为 `dist/app` 和 `dist/server`
+- 去掉 Turbo、version catalog、commit message 校验等复杂工程约束
+- lint 范围收窄到当前扁平化后的源码和必要配置文件
+- 保留 JSON 文案，但运行时不再做多语言切换，固定使用中文
+- 顶部语言切换按钮、偏好设置里的语言选项，以及相关 locale 持久化逻辑已移除
 
-Vue Vben Admin is a free and open source middle and back-end template. Using the latest `vue3`, `vite`, `TypeScript` and other mainstream technology development, the out-of-the-box middle and back-end front-end solutions can also be used for learning reference.
+## 环境要求
 
-## Upgrade Notice
+- Node.js 22+
+- pnpm 11+
 
-This is the latest version, 5.0, and it is not compatible with previous versions. If you are starting a new project, it is recommended to use the latest version. If you wish to view the old version, please use the [v2 branch](https://github.com/vbenjs/vue-vben-admin/tree/v2).
-
-## Features
-
-- **Latest Technology Stack**: Developed with cutting-edge front-end technologies like Vue 3 and Vite
-- **TypeScript**: A language for application-scale JavaScript
-- **Themes**: Multiple theme colors available with customizable options
-- **Internationalization**: Comprehensive built-in internationalization support
-- **Permissions**: Built-in solution for dynamic route-based permission generation
-
-## Preview
-
-- [Vben Admin](https://vben.pro/) - Full version Chinese site
-
-Test Account: vben/123456
-
-<div align="center">
-  <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview1.png">
-  <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview2.png">
-  <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview3.png">
-</div>
-
-### Use Gitpod
-
-Open the project in Gitpod (free online dev environment for GitHub) and start coding immediately.
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/vbenjs/vue-vben-admin)
-
-## Documentation
-
-[Document](https://doc.vben.pro/)
-
-## Install and Use
-
-1. Get the project code
+## 安装
 
 ```bash
-git clone https://github.com/vbenjs/vue-vben-admin.git
-```
-
-2. Install dependencies
-
-```bash
-cd vue-vben-admin
-npm i -g corepack
 pnpm install
 ```
 
-3. Run
+## 开发
+
+前端开发：
 
 ```bash
-pnpm dev
+pnpm run dev
 ```
 
-4. Build
+启动 mock 服务：
 
 ```bash
-pnpm build
+pnpm run server
 ```
 
-## Change Log
+默认情况下，前端开发服务器会把 `/api` 代理到 `http://localhost:5320/api`。
 
-[CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases)
+测试账号：`vben / 123456`
 
-## How to Contribute
+## 构建
 
-You are very welcome to join! [Raise an issue](https://github.com/anncwb/vue-vben-admin/issues/new/choose) or submit a Pull Request.
+构建前端与 mock 服务：
 
-**Pull Request Process:**
+```bash
+pnpm run build
+```
 
-1. Fork the code
-2. Create your branch: `git checkout -b feat/xxxx`
-3. Submit your changes: `git commit -am 'feat(function): add xxxxx'`
-4. Push your branch: `git push origin feat/xxxx`
-5. Submit `pull request`
+仅构建前端：
 
-## Git Contribution Submission Specification
+```bash
+pnpm run build:app
+```
 
-Reference [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) specification ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+仅构建服务：
 
-- `feat` Add new features
-- `fix` Fix the problem/BUG
-- `style` The code style is related and does not affect the running result
-- `perf` Optimization/performance improvement
-- `refactor` Refactor
-- `revert` Undo edit
-- `test` Test related
-- `docs` Documentation/notes
-- `chore` Dependency update/scaffolding configuration modification etc.
-- `ci` Continuous integration
-- `types` Type definition file changes
+```bash
+pnpm run build:server
+```
 
-## Browser Support
+## 常用命令
 
-The `Chrome 80+` browser is recommended for local development
+```bash
+pnpm run typecheck
+pnpm run lint
+pnpm run test
+pnpm run format
+```
 
-Support modern browsers, not IE
+## 类型检查说明
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| :-: | :-: | :-: | :-: |
-| last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+当前仓库已经恢复为：
 
-## Maintainer
+```bash
+vue-tsc --build
+```
 
-[@Vben](https://github.com/anncwb)
+## 验证状态
 
-## Star History
+当前简化版本已验证通过：
 
-[![Star History Chart](https://api.star-history.com/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://star-history.com/#vbenjs/vue-vben-admin&Date)
-
-## Donate
-
-If you think this project is helpful to you, you can help the author buy a cup of coffee to show your support!
-
-![donate](https://unpkg.com/@vbenjs/static-source@0.1.7/source/sponsor.png)
-
-<a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aee;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
-
-## Contributors
-
-<a href="https://openomy.app/github/vbenjs/vue-vben-admin" target="_blank" style="display: block; width: 100%;" align="center">
-  <img src="https://openomy.app/svg?repo=vbenjs/vue-vben-admin&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
- </a>
-
-<a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">
-  <img alt="Contributors" src="https://contrib.rocks/image?repo=vbenjs/vue-vben-admin" />
-</a>
-
-## Discord
-
-- [Github Discussions](https://github.com/anncwb/vue-vben-admin/discussions)
+- `pnpm run typecheck`
+- `pnpm run build:app`
+- `pnpm run build:server`
+- `pnpm run test`
+- `pnpm run lint`
 
 ## License
 
-[MIT © Vben-2020](./LICENSE)
+[MIT](./LICENSE)

@@ -47,7 +47,7 @@ jobs:
       #   run: git config --global user.email "you@example.com" && git config --global user.name "Your Name"
 
       - name: Vitest tests
-        run: pnpm run test:unit
+        run: pnpm run test
 
       # - name: Upload coverage
       #   uses: codecov/codecov-action@v4
@@ -98,7 +98,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Typecheck
-        run: pnpm check:type
+        run: pnpm run typecheck
 
       # From https://github.com/rhysd/actionlint/blob/main/docs/usage.md#use-actionlint-on-github-actions
       - name: Check workflow files
