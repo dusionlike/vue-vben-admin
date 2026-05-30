@@ -5,7 +5,6 @@ import type { VbenFormSchema } from '@/vben-core/form-ui';
 
 import { computed, reactive } from 'vue';
 
-import { $t } from '@/vben/locales';
 
 import { useVbenForm } from '@/vben-core/form-ui';
 import { VbenButton } from '@/vben-core/shadcn-ui';
@@ -53,7 +52,7 @@ defineExpose({
   <div>
     <Form />
     <VbenButton type="submit" class="mt-4" @click="handleSubmit">
-      {{ $t('profile.updatePassword') }}
+      {{ '更新密码' }}
     </VbenButton>
   </div>
 </template>

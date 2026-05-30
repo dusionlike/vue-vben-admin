@@ -6,7 +6,6 @@ import {
   SvgQQChatIcon,
   SvgWeChatIcon,
 } from '@/vben/icons';
-import { $t } from '@/vben/locales';
 
 import { VbenIconButton } from '@/vben-core/shadcn-ui';
 
@@ -26,35 +25,35 @@ const {
     <div class="mt-4 flex items-center justify-between">
       <span class="w-[35%] border-b border-input dark:border-gray-600"></span>
       <span class="text-center text-xs text-muted-foreground uppercase">
-        {{ $t('authentication.thirdPartyLogin') }}
+        {{ '其他登录方式' }}
       </span>
       <span class="w-[35%] border-b border-input dark:border-gray-600"></span>
     </div>
 
     <div class="mt-4 flex flex-wrap justify-center">
       <VbenIconButton
-        :tooltip="$t('authentication.wechatLogin')"
+        :tooltip="'微信登录'"
         tooltip-side="top"
         class="mb-3"
       >
         <SvgWeChatIcon />
       </VbenIconButton>
       <VbenIconButton
-        :tooltip="$t('authentication.qqLogin')"
+        :tooltip="'QQ登录'"
         tooltip-side="top"
         class="mb-3"
       >
         <SvgQQChatIcon />
       </VbenIconButton>
       <VbenIconButton
-        :tooltip="$t('authentication.githubLogin')"
+        :tooltip="'Github登录'"
         tooltip-side="top"
         class="mb-3"
       >
         <SvgGithubIcon />
       </VbenIconButton>
       <VbenIconButton
-        :tooltip="$t('authentication.googleLogin')"
+        :tooltip="'Google登录'"
         tooltip-side="top"
         class="mb-3"
       >

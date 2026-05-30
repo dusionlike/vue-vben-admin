@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 
 import { Settings } from '@/vben/icons';
-import { $t } from '@/vben/locales';
 import { preferences, updatePreferences } from '@/vben/preferences';
 import { capitalizeFirstLetter } from '@/vben/utils';
 
@@ -79,7 +78,7 @@ const listen = computed(() => {
     <slot>
       <VbenButton
         v-if="props.showButton"
-        :title="$t('preferences.title')"
+        :title="'偏好设置'"
         class="flex-col-center size-10 cursor-pointer rounded-l-lg rounded-r-none border-none bg-primary"
         @click="() => drawerApi.open()"
       >

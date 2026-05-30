@@ -16,7 +16,6 @@ import {
 } from '@/vben/icons';
 
 import { IFrameView } from '@/layouts';
-import { $t } from '@/locales';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -24,7 +23,7 @@ const routes: RouteRecordRaw[] = [
       badgeType: 'dot',
       icon: VBEN_LOGO_URL,
       order: 9998,
-      title: $t('demos.vben.title'),
+      title: "项目",
     },
     name: 'VbenProject',
     path: '/vben-admin',
@@ -36,7 +35,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           icon: 'lucide:book-open-text',
           link: VBEN_DOC_URL,
-          title: $t('demos.vben.document'),
+          title: "文档",
         },
       },
       {
@@ -57,7 +56,7 @@ const routes: RouteRecordRaw[] = [
           badgeType: 'dot',
           icon: 'logos:naiveui',
           link: VBEN_NAIVE_PREVIEW_URL,
-          title: $t('demos.vben.naive-ui'),
+          title: "Naive UI 版本",
         },
       },
       {
@@ -68,7 +67,7 @@ const routes: RouteRecordRaw[] = [
           badgeType: 'dot',
           icon: SvgAntdvLogoIcon,
           link: VBEN_ANT_PREVIEW_URL,
-          title: $t('demos.vben.antdv'),
+          title: "Ant Design Vue 版本",
         },
       },
       {
@@ -79,7 +78,7 @@ const routes: RouteRecordRaw[] = [
           badgeType: 'dot',
           icon: SvgAntdvNextLogoIcon,
           link: VBEN_ANTDV_NEXT_PREVIEW_URL,
-          title: $t('demos.vben.antdv-next'),
+          title: "Antdv Next 版本",
         },
       },
       {
@@ -90,7 +89,7 @@ const routes: RouteRecordRaw[] = [
           badgeType: 'dot',
           icon: SvgTDesignIcon,
           link: VBEN_TD_PREVIEW_URL,
-          title: $t('demos.vben.tdesign'),
+          title: "TDesign Vue 版本",
         },
       },
     ],
@@ -101,7 +100,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/_core/about/index.vue'),
     meta: {
       icon: 'lucide:copyright',
-      title: $t('demos.vben.about'),
+      title: "关于",
       order: 9999,
     },
   },
@@ -112,7 +111,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       icon: 'lucide:user',
       hideInMenu: true,
-      title: $t('page.auth.profile'),
+      title: "个人中心",
     },
   },
 ];

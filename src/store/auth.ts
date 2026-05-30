@@ -11,7 +11,6 @@ import { ElNotification } from 'element-plus';
 import { defineStore } from 'pinia';
 
 import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '@/api';
-import { $t } from '@/locales';
 
 export const useAuthStore = defineStore('auth', () => {
   const accessStore = useAccessStore();
@@ -65,8 +64,8 @@ export const useAuthStore = defineStore('auth', () => {
 
         if (userInfo?.realName) {
           ElNotification({
-            message: `${$t('authentication.loginSuccessDesc')}:${userInfo?.realName}`,
-            title: $t('authentication.loginSuccess'),
+            message: `${"欢迎回来"}:${userInfo?.realName}`,
+            title: "登录成功",
             type: 'success',
           });
         }

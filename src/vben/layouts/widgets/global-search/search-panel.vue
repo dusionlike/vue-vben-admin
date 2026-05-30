@@ -5,7 +5,6 @@ import { nextTick, onMounted, ref, shallowRef, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { SearchX, X } from '@/vben/icons';
-import { $t } from '@/vben/locales';
 import { mapTree, traverseTreeValues, uniqueByField } from '@/vben/utils';
 
 import { VbenIcon, VbenScrollbar } from '@/vben-core/shadcn-ui';
@@ -216,7 +215,7 @@ onMounted(() => {
   searchItems.value = mapTree(props.menus, (item) => {
     return {
       ...item,
-      name: $t(item?.name),
+      name: item?.name,
     };
   });
   if (searchHistory.value.length > 0) {
@@ -246,7 +245,7 @@ useEventListener('mousemove', () => {
       >
         <SearchX class="mx-auto mt-4 size-12" />
         <p class="mt-6 mb-10 text-xs">
-          {{ $t('ui.widgets.search.noResults') }}
+          {{ '未找到搜索结果' }}
           <span class="text-sm font-medium text-foreground">
             "{{ keyword }}"
           </span>
@@ -258,7 +257,7 @@ useEventListener('mousemove', () => {
         class="text-center text-muted-foreground"
       >
         <p class="my-10 text-xs">
-          {{ $t('ui.widgets.search.noRecent') }}
+          {{ '没有搜索历史' }}
         </p>
       </div>
 
@@ -267,7 +266,7 @@ useEventListener('mousemove', () => {
           v-if="searchHistory.length > 0 && !keyword"
           class="mb-2 text-xs text-muted-foreground"
         >
-          {{ $t('ui.widgets.search.recent') }}
+          {{ '搜索历史' }}
         </li>
         <li
           v-for="(item, index) in uniqueByField(searchResults, 'path')"

@@ -5,7 +5,6 @@ import type { Recordable } from '@/vben/types';
 import { computed, ref } from 'vue';
 
 import { AuthenticationForgetPassword, z } from '@/vben/common-ui';
-import { $t } from '@/vben/locales';
 
 defineOptions({ name: 'ForgetPassword' });
 
@@ -19,11 +18,11 @@ const formSchema = computed((): VbenFormSchema[] => {
         placeholder: 'example@example.com',
       },
       fieldName: 'email',
-      label: $t('authentication.email'),
+      label: '邮箱',
       rules: z
         .string()
-        .min(1, { message: $t('authentication.emailTip') })
-        .email($t('authentication.emailValidErrorTip')),
+        .min(1, { message: '请输入邮箱' })
+        .email('你输入的邮箱格式不正确'),
     },
   ];
 });

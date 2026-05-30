@@ -14,7 +14,6 @@ import { computed, ref, useAttrs } from 'vue';
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
 
-import { $t } from '@/vben/locales';
 
 import JsonBigint from 'json-bigint';
 
@@ -46,8 +45,8 @@ const copiedPath = ref<null | string>(null);
 
 const copyConfig = computed(() => {
   return {
-    copiedText: $t('ui.jsonViewer.copied'),
-    copyText: $t('ui.jsonViewer.copy'),
+    copiedText: '已复制',
+    copyText: '复制',
     timeout: 2000,
   };
 });

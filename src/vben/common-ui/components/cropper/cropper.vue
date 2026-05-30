@@ -734,7 +734,7 @@ defineExpose({ getCropImage });
           maxHeight: '100%',
           objectFit: 'contain',
         }"
-        alt="裁剪原图"
+        alt='裁剪原图'
       />
 
       <!-- 遮罩层 -->

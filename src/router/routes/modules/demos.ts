@@ -1,6 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { $t } from '@/locales';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -8,14 +7,14 @@ const routes: RouteRecordRaw[] = [
       icon: 'ic:baseline-view-in-ar',
       keepAlive: true,
       order: 1000,
-      title: $t('demos.title'),
+      title: "演示",
     },
     name: 'Demos',
     path: '/demos',
     children: [
       {
         meta: {
-          title: $t('demos.elementPlus'),
+          title: "Element Plus",
         },
         name: 'NaiveDemos',
         path: '/demos/element',
@@ -23,7 +22,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         meta: {
-          title: $t('demos.form'),
+          title: "表单演示",
         },
         name: 'BasicForm',
         path: '/demos/form',

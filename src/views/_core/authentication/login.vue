@@ -5,7 +5,6 @@ import type { BasicOption } from '@/vben/types';
 import { computed, markRaw } from 'vue';
 
 import { AuthenticationLogin, SliderCaptcha, z } from '@/vben/common-ui';
-import { $t } from '@/vben/locales';
 
 import { useAuthStore } from '@/store';
 
@@ -34,20 +33,20 @@ const formSchema = computed((): VbenFormSchema[] => {
       component: 'VbenSelect',
       componentProps: {
         options: MOCK_USER_OPTIONS,
-        placeholder: $t('authentication.selectAccount'),
+        placeholder: '快速选择账号',
       },
       fieldName: 'selectAccount',
-      label: $t('authentication.selectAccount'),
+      label: '快速选择账号',
       rules: z
         .string()
-        .min(1, { message: $t('authentication.selectAccount') })
+        .min(1, { message: '快速选择账号' })
         .optional()
         .default('vben'),
     },
     {
       component: 'VbenInput',
       componentProps: {
-        placeholder: $t('authentication.usernameTip'),
+        placeholder: '请输入用户名',
       },
       dependencies: {
         trigger(values, form) {
@@ -66,23 +65,23 @@ const formSchema = computed((): VbenFormSchema[] => {
         triggerFields: ['selectAccount'],
       },
       fieldName: 'username',
-      label: $t('authentication.username'),
-      rules: z.string().min(1, { message: $t('authentication.usernameTip') }),
+      label: '账号',
+      rules: z.string().min(1, { message: '请输入用户名' }),
     },
     {
       component: 'VbenInputPassword',
       componentProps: {
-        placeholder: $t('authentication.password'),
+        placeholder: '密码',
       },
       fieldName: 'password',
-      label: $t('authentication.password'),
-      rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
+      label: '密码',
+      rules: z.string().min(1, { message: '请输入密码' }),
     },
     {
       component: markRaw(SliderCaptcha),
       fieldName: 'captcha',
       rules: z.boolean().refine((value) => value, {
-        message: $t('authentication.verifyRequiredTip'),
+        message: '请先完成验证',
       }),
     },
   ];

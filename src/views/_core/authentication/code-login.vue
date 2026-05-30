@@ -5,7 +5,6 @@ import type { Recordable } from '@/vben/types';
 import { computed, ref } from 'vue';
 
 import { AuthenticationCodeLogin, z } from '@/vben/common-ui';
-import { $t } from '@/vben/locales';
 
 defineOptions({ name: 'CodeLogin' });
 
@@ -17,15 +16,15 @@ const formSchema = computed((): VbenFormSchema[] => {
     {
       component: 'VbenInput',
       componentProps: {
-        placeholder: $t('authentication.mobile'),
+        placeholder: '手机号码',
       },
       fieldName: 'phoneNumber',
-      label: $t('authentication.mobile'),
+      label: '手机号码',
       rules: z
         .string()
-        .min(1, { message: $t('authentication.mobileTip') })
+        .min(1, { message: '请输入手机号' })
         .refine((v) => /^\d{11}$/.test(v), {
-          message: $t('authentication.mobileErrortip'),
+          message: '手机号码格式错误',
         }),
     },
     {
@@ -33,22 +32,19 @@ const formSchema = computed((): VbenFormSchema[] => {
       componentProps: {
         codeLength: CODE_LENGTH,
         createText: (countdown: number) => {
-          const text =
-            countdown > 0
-              ? $t('authentication.sendText', [countdown])
-              : $t('authentication.sendCode');
+          const text = countdown > 0 ? `${countdown}秒后重新获取` : '获取验证码';
           return text;
         },
-        placeholder: $t('authentication.code'),
+        placeholder: '验证码',
         handleSendCode: async () => {
           console.warn('发送验证码前校验等逻辑');
           throw new Error('手机号校验失败');
         },
       },
       fieldName: 'code',
-      label: $t('authentication.code'),
+      label: '验证码',
       rules: z.string().length(CODE_LENGTH, {
-        message: $t('authentication.codeTip', [CODE_LENGTH]),
+        message: `请输入${CODE_LENGTH}位验证码`,
       }),
     },
   ];

@@ -5,7 +5,6 @@ import type { Recordable } from '@/vben/types';
 import { computed, h, ref } from 'vue';
 
 import { AuthenticationRegister, z } from '@/vben/common-ui';
-import { $t } from '@/vben/locales';
 
 defineOptions({ name: 'Register' });
 
@@ -16,46 +15,46 @@ const formSchema = computed((): VbenFormSchema[] => {
     {
       component: 'VbenInput',
       componentProps: {
-        placeholder: $t('authentication.usernameTip'),
+        placeholder: '请输入用户名',
       },
       fieldName: 'username',
-      label: $t('authentication.username'),
-      rules: z.string().min(1, { message: $t('authentication.usernameTip') }),
+      label: '账号',
+      rules: z.string().min(1, { message: '请输入用户名' }),
     },
     {
       component: 'VbenInputPassword',
       componentProps: {
         passwordStrength: true,
-        placeholder: $t('authentication.password'),
+        placeholder: '密码',
       },
       fieldName: 'password',
-      label: $t('authentication.password'),
+      label: '密码',
       renderComponentContent() {
         return {
-          strengthText: () => $t('authentication.passwordStrength'),
+          strengthText: () => '使用 8 个或更多字符，混合字母、数字和符号',
         };
       },
-      rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
+      rules: z.string().min(1, { message: '请输入密码' }),
     },
     {
       component: 'VbenInputPassword',
       componentProps: {
-        placeholder: $t('authentication.confirmPassword'),
+        placeholder: '确认密码',
       },
       dependencies: {
         rules(values) {
           const { password } = values;
           return z
-            .string({ required_error: $t('authentication.passwordTip') })
-            .min(1, { message: $t('authentication.passwordTip') })
+            .string({ required_error: '请输入密码' })
+            .min(1, { message: '请输入密码' })
             .refine((value) => value === password, {
-              message: $t('authentication.confirmPasswordTip'),
+              message: '两次输入的密码不一致',
             });
         },
         triggerFields: ['password'],
       },
       fieldName: 'confirmPassword',
-      label: $t('authentication.confirmPassword'),
+      label: '确认密码',
     },
     {
       component: 'VbenCheckbox',
@@ -63,19 +62,19 @@ const formSchema = computed((): VbenFormSchema[] => {
       renderComponentContent: () => ({
         default: () =>
           h('span', [
-            $t('authentication.agree'),
+            '我同意',
             h(
               'a',
               {
                 class: 'vben-link ml-1 ',
                 href: '',
               },
-              `${$t('authentication.privacyPolicy')} & ${$t('authentication.terms')}`,
+              `${'隐私政策'} & ${'条款'}`,
             ),
           ]),
       }),
       rules: z.boolean().refine((value) => !!value, {
-        message: $t('authentication.agreeTip'),
+        message: '请同意隐私政策和条款',
       }),
     },
   ];

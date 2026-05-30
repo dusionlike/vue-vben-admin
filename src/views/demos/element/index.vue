@@ -58,8 +58,8 @@ const segmentedOptions = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 <template>
   <Page
-    description="支持多语言，主题功能集成切换等"
-    title="Element Plus组件使用演示"
+    description='支持多语言，主题功能集成切换等'
+    title='Element Plus组件使用演示'
   >
     <div class="flex flex-wrap gap-5">
       <ElCard class="mb-5 w-auto">
@@ -106,8 +106,8 @@ const segmentedOptions = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       </ElCard>
       <ElCard class="mb-5 w-80">
         <ElTable :data="tableData" stripe>
-          <ElTable.TableColumn label="测试列1" prop="prop1" />
-          <ElTable.TableColumn label="测试列2" prop="prop2" />
+          <ElTable.TableColumn label='测试列1' prop="prop1" />
+          <ElTable.TableColumn label='测试列2' prop="prop2" />
         </ElTable>
       </ElCard>
     </div>

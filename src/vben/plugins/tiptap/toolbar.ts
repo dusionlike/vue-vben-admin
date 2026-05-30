@@ -28,12 +28,17 @@ import {
   Undo2,
   Unlink2,
 } from '@/vben/icons';
-import { $t } from '@/vben/locales';
 import { COLOR_PRESETS } from '@/vben/preferences';
 
 import { prompt } from '@/vben-core/popup-ui';
 
 const headingLevels = [1, 2, 3, 4] as const;
+const headingLabels: Record<(typeof headingLevels)[number], string> = {
+  1: '标题1',
+  2: '标题2',
+  3: '标题3',
+  4: '标题4',
+};
 const editorColorPresets = [
   'hsl(var(--foreground))',
   'hsl(var(--warning))',
@@ -55,7 +60,7 @@ function createHeadingMenuItems(): ToolbarMenuItem[] {
       action: (editor) => editor.chain().focus().setParagraph().run(),
       can: (editor) => editor.can().chain().focus().setParagraph().run(),
       isActive: (editor) => editor.isActive('paragraph'),
-      label: $t('ui.tiptap.toolbar.paragraph'),
+      label: "正文",
       shortLabel: 'P',
     },
     ...headingLevels.map((level) => ({
@@ -64,7 +69,7 @@ function createHeadingMenuItems(): ToolbarMenuItem[] {
       can: (editor: Editor) =>
         editor.can().chain().focus().toggleHeading({ level }).run(),
       isActive: (editor: Editor) => editor.isActive('heading', { level }),
-      label: $t(`ui.tiptap.toolbar.heading${level}`),
+      label: headingLabels[level],
       shortLabel: `H${level}`,
     })),
   ];
@@ -111,7 +116,7 @@ async function handleLinkAction(editor: Editor) {
       componentProps: {
         placeholder: 'https://example.com',
       },
-      content: $t('ui.tiptap.prompts.link'),
+      content: "请输入链接地址",
       defaultValue: currentHref ?? '',
     });
   } catch {
@@ -143,7 +148,7 @@ async function handleImageAction(editor: Editor) {
       componentProps: {
         placeholder: 'https://example.com/image.png',
       },
-      content: $t('ui.tiptap.prompts.image'),
+      content: "请输入图片地址",
       defaultValue: '',
     });
   } catch {
@@ -170,19 +175,19 @@ export function createToolbarGroups(
         action: (editor) => editor.chain().focus().undo().run(),
         can: (editor) => editor.can().chain().focus().undo().run(),
         icon: Undo2,
-        label: $t('ui.tiptap.toolbar.undo'),
+        label: "撤销",
       },
       {
         action: (editor) => editor.chain().focus().redo().run(),
         can: (editor) => editor.can().chain().focus().redo().run(),
         icon: Redo2,
-        label: $t('ui.tiptap.toolbar.redo'),
+        label: "重做",
       },
       {
         action: (editor) =>
           editor.chain().focus().clearNodes().unsetAllMarks().run(),
         icon: RemoveFormatting,
-        label: $t('ui.tiptap.toolbar.clear'),
+        label: "清除",
       },
     ],
     [
@@ -191,35 +196,35 @@ export function createToolbarGroups(
         active: { name: 'bold' },
         can: (editor) => editor.can().chain().focus().toggleBold().run(),
         icon: Bold,
-        label: $t('ui.tiptap.toolbar.bold'),
+        label: "加粗",
       },
       {
         action: (editor) => editor.chain().focus().toggleItalic().run(),
         active: { name: 'italic' },
         can: (editor) => editor.can().chain().focus().toggleItalic().run(),
         icon: Italic,
-        label: $t('ui.tiptap.toolbar.italic'),
+        label: "斜体",
       },
       {
         action: (editor) => editor.chain().focus().toggleUnderline().run(),
         active: { name: 'underline' },
         can: (editor) => editor.can().chain().focus().toggleUnderline().run(),
         icon: Underline,
-        label: $t('ui.tiptap.toolbar.underline'),
+        label: "下划线",
       },
       {
         action: (editor) => editor.chain().focus().toggleStrike().run(),
         active: { name: 'strike' },
         can: (editor) => editor.can().chain().focus().toggleStrike().run(),
         icon: Strikethrough,
-        label: $t('ui.tiptap.toolbar.strike'),
+        label: "删除线",
       },
       {
         action: (editor) => editor.chain().focus().toggleCode().run(),
         active: { name: 'code' },
         can: (editor) => editor.can().chain().focus().toggleCode().run(),
         icon: SquareCode,
-        label: $t('ui.tiptap.toolbar.code'),
+        label: "行内代码",
       },
     ],
     [
@@ -229,7 +234,7 @@ export function createToolbarGroups(
           headingMenuItems.some((item) => (item.can ? item.can(editor) : true)),
         isActive: (editor) =>
           headingMenuItems.some((item) => item.isActive?.(editor)),
-        label: $t('ui.tiptap.toolbar.heading'),
+        label: "标题",
         menu: {
           items: headingMenuItems,
         },
@@ -240,28 +245,28 @@ export function createToolbarGroups(
         active: { name: 'bulletList' },
         can: (editor) => editor.can().chain().focus().toggleBulletList().run(),
         icon: List,
-        label: $t('ui.tiptap.toolbar.bulletList'),
+        label: "无序列表",
       },
       {
         action: (editor) => editor.chain().focus().toggleOrderedList().run(),
         active: { name: 'orderedList' },
         can: (editor) => editor.can().chain().focus().toggleOrderedList().run(),
         icon: ListOrdered,
-        label: $t('ui.tiptap.toolbar.orderedList'),
+        label: "有序列表",
       },
       {
         action: (editor) => editor.chain().focus().toggleBlockquote().run(),
         active: { name: 'blockquote' },
         can: (editor) => editor.can().chain().focus().toggleBlockquote().run(),
         icon: TextQuote,
-        label: $t('ui.tiptap.toolbar.blockquote'),
+        label: "引用",
       },
       {
         action: (editor) => editor.chain().focus().toggleCodeBlock().run(),
         active: { name: 'codeBlock' },
         can: (editor) => editor.can().chain().focus().toggleCodeBlock().run(),
         icon: MessageSquareCode,
-        label: $t('ui.tiptap.toolbar.codeBlock'),
+        label: "代码块",
       },
     ],
     [
@@ -271,19 +276,19 @@ export function createToolbarGroups(
         can: (editor) =>
           editor.can().chain().focus().extendMarkRange('link').run(),
         icon: Link2,
-        label: $t('ui.tiptap.toolbar.link'),
+        label: "链接",
       },
       {
         action: (editor) => editor.chain().focus().unsetLink().run(),
         can: (editor) => editor.can().chain().focus().unsetLink().run(),
         icon: Unlink2,
         isActive: (editor) => editor.isActive('link'),
-        label: $t('ui.tiptap.toolbar.unlink'),
+        label: "移除链接",
       },
       {
         action: (editor) => handleImageAction(editor),
         icon: ImagePlus,
-        label: $t('ui.tiptap.toolbar.image'),
+        label: "图片",
         ...(imageUpload
           ? {
               action: () => {},
@@ -295,12 +300,12 @@ export function createToolbarGroups(
                         editor.commands.uploadImage();
                       }
                     },
-                    label: $t('ui.tiptap.toolbar.imageUpload'),
+                    label: "从本地上传",
                     shortLabel: 'UPL',
                   },
                   {
                     action: (editor) => handleImageAction(editor),
-                    label: $t('ui.tiptap.toolbar.imageUrl'),
+                    label: "图片URL",
                     shortLabel: 'URL',
                   },
                 ],
@@ -316,7 +321,7 @@ export function createToolbarGroups(
         indicatorColor: (editor) =>
           editor.getAttributes('textStyle').color as string | undefined,
         isActive: (editor) => Boolean(editor.getAttributes('textStyle').color),
-        label: $t('ui.tiptap.toolbar.textColor'),
+        label: "文字颜色",
         palette: {
           apply: (editor, color) =>
             editor.chain().focus().setColor(color).run(),
@@ -333,7 +338,7 @@ export function createToolbarGroups(
           (editor.getAttributes('highlight').color as string | undefined) ??
           '#fef08a',
         isActive: (editor) => editor.isActive('highlight'),
-        label: $t('ui.tiptap.toolbar.highlightColor'),
+        label: "高亮颜色",
         palette: {
           apply: (editor, color) =>
             editor.chain().focus().setHighlight({ color }).run(),
@@ -351,7 +356,7 @@ export function createToolbarGroups(
           editor.can().chain().focus().setTextAlign('left').run(),
         icon: AlignLeft,
         isActive: (editor) => editor.isActive({ textAlign: 'left' }),
-        label: $t('ui.tiptap.toolbar.alignLeft'),
+        label: "左对齐",
       },
       {
         action: (editor) => editor.chain().focus().setTextAlign('center').run(),
@@ -359,7 +364,7 @@ export function createToolbarGroups(
           editor.can().chain().focus().setTextAlign('center').run(),
         icon: AlignCenter,
         isActive: (editor) => editor.isActive({ textAlign: 'center' }),
-        label: $t('ui.tiptap.toolbar.alignCenter'),
+        label: "居中",
       },
       {
         action: (editor) => editor.chain().focus().setTextAlign('right').run(),
@@ -367,7 +372,7 @@ export function createToolbarGroups(
           editor.can().chain().focus().setTextAlign('right').run(),
         icon: AlignRight,
         isActive: (editor) => editor.isActive({ textAlign: 'right' }),
-        label: $t('ui.tiptap.toolbar.alignRight'),
+        label: "右对齐",
       },
     ],
   ];

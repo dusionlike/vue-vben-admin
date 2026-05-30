@@ -7,15 +7,17 @@ import { initStores } from '@/vben/stores';
 import '@/vben/styles';
 import '@/vben/styles/ele/index.css';
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import { useTitle } from '@vueuse/core';
 import { ElLoading } from 'element-plus';
-
-import { $t, setupI18n } from '@/locales';
 
 import { initComponentAdapter } from './adapter/component';
 import { initSetupVbenForm } from './adapter/form';
 import App from './app.vue';
 import { router } from './router';
+
+dayjs.locale('zh-cn');
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
@@ -43,10 +45,7 @@ async function bootstrap(namespace: string) {
     spinning: 'spinning',
   });
 
-  // 国际化 i18n 配置
-  await setupI18n(app);
-
-  // 配置 pinia-tore
+  // 配置 pinia-store
   await initStores(app, { namespace });
 
   // 安装权限指令
@@ -67,8 +66,7 @@ async function bootstrap(namespace: string) {
   watchEffect(() => {
     if (preferences.app.dynamicTitle) {
       const routeTitle = router.currentRoute.value.meta?.title;
-      const pageTitle =
-        (routeTitle ? `${$t(routeTitle)} - ` : '') + preferences.app.name;
+      const pageTitle = (routeTitle ? `${routeTitle} - ` : '') + preferences.app.name;
       useTitle(pageTitle);
     }
   });

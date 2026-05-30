@@ -95,7 +95,7 @@ const pinType = 'text' as const;
     :disabled="disabled"
     class="flex w-full justify-between"
     otp
-    placeholder="○"
+    placeholder='○'
     :type="pinType"
     @complete="handleComplete"
   >

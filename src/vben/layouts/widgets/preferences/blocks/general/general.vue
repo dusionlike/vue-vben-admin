@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, unref } from 'vue';
 
-import { $t } from '@/vben/locales';
 import { useTimezoneStore } from '@/vben/stores';
 
 import InputItem from '../input-item.vue';
@@ -41,10 +40,10 @@ onMounted(async () => {
 
 <template>
   <SelectItem v-model="appTimezone" :items="timezoneOptionsRef">
-    {{ $t('preferences.timezone') }}
+    {{ '时区' }}
   </SelectItem>
   <SwitchItem v-model="appDynamicTitle">
-    {{ $t('preferences.dynamicTitle') }}
+    {{ '动态标题' }}
   </SwitchItem>
   <SwitchItem
     v-model="appWatermark"
@@ -54,19 +53,19 @@ onMounted(async () => {
       }
     "
   >
-    {{ $t('preferences.watermark') }}
+    {{ '水印' }}
   </SwitchItem>
   <InputItem
     v-if="appWatermark"
     v-model="appWatermarkContent"
-    :placeholder="$t('preferences.watermarkContent')"
+    :placeholder="'请输入水印文案'"
   >
-    {{ $t('preferences.watermarkContent') }}
+    {{ '请输入水印文案' }}
   </InputItem>
   <SwitchItem v-model="appEnableCheckUpdates">
-    {{ $t('preferences.checkUpdates') }}
+    {{ '定时检查更新' }}
   </SwitchItem>
   <SwitchItem v-model="appEnableCopyPreferences">
-    {{ $t('preferences.enableCopyPreferences') }}
+    {{ '显示复制偏好设置按钮' }}
   </SwitchItem>
 </template>

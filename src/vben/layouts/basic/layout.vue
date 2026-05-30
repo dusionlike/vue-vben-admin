@@ -8,7 +8,6 @@ import { computed, onMounted, useSlots, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { useRefresh } from '@/vben/hooks';
-import { $t } from '@/vben/locales';
 import {
   preferences,
   updatePreferences,
@@ -141,17 +140,17 @@ const {
 } = useExtraMenu(mixHeaderMenus);
 
 /**
- * 包装菜单，翻译菜单名称
+ * 包装菜单，规范菜单名称
  * @param menus 原始菜单数据
  * @param deep 是否深度包装。对于双列布局，只需要包装第一层，因为更深层的数据会在扩展菜单中重新包装
  */
 function wrapperMenus(menus: MenuRecordRaw[], deep: boolean = true) {
   return deep
     ? mapTree(menus, (item) => {
-        return { ...cloneDeep(item), name: $t(item.name) };
+        return { ...cloneDeep(item), name: item.name };
       })
     : menus.map((item) => {
-        return { ...cloneDeep(item), name: $t(item.name) };
+        return { ...cloneDeep(item), name: item.name };
       });
 }
 
