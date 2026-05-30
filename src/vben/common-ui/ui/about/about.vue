@@ -26,21 +26,28 @@ withDefaults(defineProps<Props>(), {
   title: '关于项目',
 });
 
-declare global {
-  const __VBEN_ADMIN_METADATA__: {
-    authorEmail: string;
-    authorName: string;
-    authorUrl: string;
-    buildTime: string;
-    dependencies: Record<string, string>;
-    description: string;
-    devDependencies: Record<string, string>;
-    homepage: string;
-    license: string;
-    repositoryUrl: string;
-    version: string;
-  };
+interface AboutMetadata {
+  authorEmail: string;
+  authorName: string;
+  authorUrl: string;
+  buildTime: string;
+  dependencies: Record<string, string>;
+  description: string;
+  devDependencies: Record<string, string>;
+  homepage: string;
+  license: string;
+  repositoryUrl: string;
+  version: string;
 }
+
+declare global {
+  const __VBEN_ADMIN_METADATA__: AboutMetadata;
+}
+
+const aboutMetadata: Partial<AboutMetadata> =
+  typeof __VBEN_ADMIN_METADATA__ === 'undefined'
+    ? {}
+    : __VBEN_ADMIN_METADATA__;
 
 const renderLink = (href: string, text: string) =>
   h(
@@ -49,18 +56,33 @@ const renderLink = (href: string, text: string) =>
     { default: () => text },
   );
 
+const EMPTY_TEXT = '-';
+
+const renderOptionalLink = (href?: string, text = '点击查看') =>
+  href ? renderLink(href, text) : EMPTY_TEXT;
+
 const {
-  authorEmail,
-  authorName,
-  authorUrl,
-  buildTime,
+  authorEmail = '',
+  authorName = '',
+  authorUrl = '',
+  buildTime = EMPTY_TEXT,
   dependencies = {},
   devDependencies = {},
-  homepage,
-  license,
-  version,
+  homepage = '',
+  license = EMPTY_TEXT,
+  version = EMPTY_TEXT,
   // vite inject-metadata 插件注入的全局变量
-} = __VBEN_ADMIN_METADATA__ || {};
+} = aboutMetadata;
+
+const authorContent =
+  authorName || authorEmail || authorUrl
+    ? h('div', [
+        renderOptionalLink(authorUrl, `${authorName || '作者'}  `),
+        authorEmail
+          ? renderLink(`mailto:${authorEmail}`, authorEmail)
+          : EMPTY_TEXT,
+      ])
+    : EMPTY_TEXT;
 
 const vbenDescriptionItems: DescriptionItem[] = [
   {
@@ -76,7 +98,7 @@ const vbenDescriptionItems: DescriptionItem[] = [
     title: '最后构建时间',
   },
   {
-    content: renderLink(homepage, '点击查看'),
+    content: renderOptionalLink(homepage),
     title: '主页',
   },
   {
@@ -92,10 +114,7 @@ const vbenDescriptionItems: DescriptionItem[] = [
     title: 'Github',
   },
   {
-    content: h('div', [
-      renderLink(authorUrl, `${authorName}  `),
-      renderLink(`mailto:${authorEmail}`, authorEmail),
-    ]),
+    content: authorContent,
     title: '作者',
   },
 ];
